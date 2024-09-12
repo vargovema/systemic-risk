@@ -1,45 +1,67 @@
 # Deep Learning Perspective on Systemic Risk with Non-Normal Risk Factors
 
-## Overview
+This project implements deep learning techniques to model **systemic risk**, a key factor in financial stability, particularly during crises. Traditional risk models often rely on normal distributions, which fail to account for the complexities of real-world financial data and extreme events. This thesis addresses these limitations by incorporating non-normal risk factors such as the **Student-t distribution** and **copulas**, which are better suited for capturing tail risks and dependencies. By optimizing cash allocations among financial institutions, the project aims to improve the accuracy of systemic risk predictions and enhance overall financial system stability.
 
-This thesis addresses the limitations of traditional systemic risk models, which often assume normally distributed risk factors, by leveraging advanced deep learning techniques. By integrating methods like the Student-t distribution and copulas, this research aims to provide a more accurate and comprehensive framework for assessing systemic risk, ultimately enhancing the resilience of financial systems.
+### Key Objectives:
+1. **Review and critique existing systemic risk measures** that rely on normally distributed risk factors.
+2. **Develop deep learning models** to handle complex, high-dimensional financial data using non-normal distributions, building on methods outlined by Feng et al. (2022) for optimizing systemic risk measures.
+3. **Compare the performance** of these models using simulated data to evaluate the effectiveness of deep learning in systemic risk assessment.
 
-## Table of Contents
+## Implementation Details
 
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Acknowledgements](#acknowledgements)
-5. [Contact](#contact)
+### Data Simulation:
+- **Risk Factors Simulation:** The project simulates financial data using three distributions:
+  1. **Normally Distributed Risk Factors**.
+  2. **Student-t Distributed Risk Factors** (captures heavy tails).
+  3. **Copula Distributed Risk Factors** (models non-linear dependencies).
+
+- Simulated data is used to train the neural networks for systemic risk assessment.
+
+### Neural Networks:
+The project uses a combination of **primal and dual problem formulations** based on the work of Feng et al. (2022), solved using neural networks. The deep learning framework TensorFlow is used for model building and training.
+
+- **Primal Problem:** Optimizes cash allocations across financial institutions to ensure the stability of the system.
+- **Dual Problem:** Identifies how to distribute systemic risk fairly.
+
+#### Network Architecture:
+- **Fully connected neural networks** with 3 hidden layers.
+- **Leaky ReLU activation** functions are used in the hidden layers to avoid the dead neurons problem.
+- The networks are trained using **Stochastic Gradient Descent (SGD)** with a learning rate and decay.
+
+#### GANs for Systemic Risk:
+- The dual problem leverages **Generative Adversarial Networks (GANs)**, where:
+  - The **generator** network produces estimates for risk allocations.
+  - The **discriminator** network estimates the Radon-Nikodym derivative, a crucial component for adjusting the allocation fairly, as proposed by Feng et al. (2022).
 
 
-## Introduction
+## Installation and usage
 
-This thesis introduces a novel approach to systemic risk assessment by integrating deep learning methodologies with systemic risk measures that consider non-normal risk factors. By employing distributions such as the Student-t distribution and copulas, which are known for capturing fat tails and extreme dependencies, this research aims to provide a more realistic and comprehensive framework for systemic risk evaluation.
+### Prerequisites
 
-The primary objectives of this thesis are threefold:
-1. To review and critique existing systemic risk measures and their limitations in the context of non-normal risk factors.
-2. To develop and implement deep learning algorithms capable of handling complex, high-dimensional financial data to improve the accuracy of systemic risk predictions.
-3. To compare the performance of these deep learning models against traditional methods using simulated data representing various risk factor distributions.
+- Python 3.9.17 and 3.10.14 using `pyenv`.
+- TensorFlow and other dependencies specified in the `requirements` files.
 
-By addressing these objectives, this thesis contributes to the field of quantitative finance by enhancing our understanding of systemic risk and providing practical tools for risk management. The findings are expected to have implications for financial institutions, regulators, and policymakers, aiding in the development of more resilient financial systems.
+### Simulating Risk Factors
 
-In the subsequent chapters, the focus is on the motivation behind this research, review of relevant literature, methodological framework, results of the deep learning models, and discussion of implications and potential future directions for systemic risk management.
+The first step is to simulate the risk factors used to train the neural network models. To reproduce the results in the `risk-factors-simulation` notebook, follow these steps:
+```bash
+git clone https://github.com/vargovema/systemic-risk.git
+pyenv local 3.9.17
+python -m venv venv39
+source venv39/bin/activate 
+pip install -r requirements39.txt
+```
 
-## Installation
+### Implementing Neural Networks
 
-Instructions for setting up your project. Include any prerequisites and installation steps. For example:
+To implement and train neural networks using the simulated data, follow these steps to reproduce the results in the `sys-risk-norm-dist`, `sys-risk-t-dist`, and `sys-risk-cop-dist` notebooks:
+```bash
+git clone https://github.com/vargovema/systemic-risk.git
+pyenv local 3.10.14
+python -m venv venv310
+source venv310/bin/activate  
+pip install -r requirements310.txt
+```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/username/repository.git
-   ```
-
-## Usage
-Explain how to use your project. Provide examples and instructions for running any scripts or using any tools included in your repository. If applicable, include code snippets, screenshots, or command-line instructions.
-
-## Acknowledgements
-Thank anyone who helped with your thesis, such as advisors, collaborators, or funding sources. Mention any tools, libraries, or resources that were instrumental in your work.
-
-## Contact
-Provide your contact information or the best way for people to reach you if they have questions or comments about your thesis.
+## References
+Feng, Y., Min, M., & Fouque, J.-P. (2022). *Deep learning for systemic risk measures.* Retrieved 2024-09-02, from https://arxiv.org/abs/2207.00739 doi: 10.48550/arXiv.2207.00739
